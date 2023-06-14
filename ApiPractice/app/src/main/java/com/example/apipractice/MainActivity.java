@@ -1,13 +1,16 @@
 package com.example.apipractice;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.ConditionVariable;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -55,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         apiinterface = APIClient.getClient(getString(R.string.weather_url)).create(APIService.class);
 
         //통신 요청
-        Call<WeatherCloudsModeal> call = apiinterface.doGetJsonData("weather", "seoul", getString(R.string.weather_app_id));
+        Call<WeatherInfoModeal> call = apiinterface.doGetJsonData("weather", "seoul", getString(R.string.weather_app_id));
 
         //응답 콜백 구현
         call.enqueue(new Callback<WeatherInfoModeal>() {
@@ -63,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<WeatherInfoModeal> call, Response<WeatherInfoModeal> response) {
                 WeatherInfoModeal resource = response.body();
                 if(response.isSuccessful()) {
-                    setWeatherData(resource);
+                    setWeatherData(resource);   //UI 업데이트
                 }else{
                     showFailPop();
                 }
@@ -98,6 +101,28 @@ public class MainActivity extends AppCompatActivity {
         tv_cloud.setText(doubleToStrFormat(2, model.getClouds().getAll())+ "%");
         tv_humidity.setText(doubleToStrFormat(2, model.getMain().getHumidity()) +"%");
 
+    }
+
+    //통신 실패시 lertDialog 표시하는 메소드
+    private void showFailPop() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Title").setMessage("통신 싪패");
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                Toast.makeText(getApplicationContext(), "OK Click", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                Toast.makeText(getApplicationContext(), "Cancel CLick", Toast.LENGTH_SHORT).show();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
 

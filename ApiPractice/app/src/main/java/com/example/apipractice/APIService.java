@@ -9,7 +9,7 @@ import retrofit2.http.Query;
 public interface APIService {
 
     @GET("data/2.5/{path}")
-    Call<WeatherCloudsModeal> doGetJsonData(
+    Call<WeatherInfoModeal> doGetJsonData(
             @Path("path") String path,
             @Query("q") String q,
             @Query("appid") String appid
