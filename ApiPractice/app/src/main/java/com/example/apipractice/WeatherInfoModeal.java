@@ -12,19 +12,19 @@ public class WeatherInfoModeal {
     String name = "";
 
     @SerializedName("weather")
-    List<WeatherInfoModeal> weather;
+    List<WeatherWeatherModeal> weather;
 
     @SerializedName("main")
-    WeatherInfoModeal main;
+    WeatherMainModeal main;
 
     @SerializedName("wind")
-    WeatherInfoModeal wind;
+    WeatherWindModeal wind;
 
     @SerializedName("sys")
-    WeatherInfoModeal sys;
+    WeatherSysModeal sys;
 
     @SerializedName("clouds")
-    WeatherInfoModeal clouds;
+    WeatherCloudsModeal clouds;
 
     public String getName() {
         return name;
@@ -34,42 +34,42 @@ public class WeatherInfoModeal {
         this.name = name;
     }
 
-    public List<WeatherInfoModeal> getWeather() {
+    public List<WeatherWeatherModeal> getWeather() {
         return weather;
     }
 
-    public void setWeather(List<WeatherInfoModeal> weather) {
+    public void setWeather(List<WeatherWeatherModeal> weather) {
         this.weather = weather;
     }
 
-    public WeatherInfoModeal getMain() {
+    public WeatherMainModeal getMain() {
         return main;
     }
 
-    public void setMain(WeatherInfoModeal main) {
+    public void setMain(WeatherMainModeal main) {
         this.main = main;
     }
 
-    public WeatherInfoModeal getWind() {
+    public WeatherWindModeal getWind() {
         return wind;
     }
-    public void setWind(WeatherInfoModeal wind){
+    public void setWind(WeatherWindModeal wind){
         this.wind = wind;
     }
 
-    public WeatherInfoModeal getSys() {
+    public WeatherSysModeal getSys() {
         return sys;
     }
 
-    public void setSys(WeatherInfoModeal sys){
+    public void setSys(WeatherSysModeal sys){
         this.sys = sys;
     }
 
-    public WeatherInfoModeal getClouds() {
+    public WeatherCloudsModeal getClouds() {
         return clouds;
     }
 
-    public void setClouds(WeatherInfoModeal clouds){
+    public void setClouds(WeatherCloudsModeal clouds){
         this.clouds = clouds;
     }
 }
