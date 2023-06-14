@@ -2,11 +2,14 @@ package com.example.apipractice;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.ConditionVariable;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import org.w3c.dom.Text;
 
@@ -77,5 +80,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    
+    //통신하여 받아온 날씨 데이터를 통해 UI 업데이트 메소드
+    private void setWeatherData(WeatherInfoModeal model) {
+        tv_name.setText(model.getName());
+        tv_country.setText(model.getSys().getCountry());
+
+        Glide.with(context).load(getString(R.string.weather_url)+"img/w/"+model.getWeather().get(0).getIcon()+".png")
+                //Glide 라이브러리를 이용하여 ImageView 에 url 로 이미지 지정
+                .placeholder(R.drawable.icon_image)
+                .error(R.drawable.icon_image)
+                .into(iv_weather);
+        tv_temp.setText(doubleToStrFormat(2,model.getMain().getTemp()-273.15)+ " °C");
+
+        tv_main.setText(model.getWeather().get(0).getMain());
+        tv_description.setText(model.getWeather().get(0).getDescription());
+        tv_wind.setText(doubleToStrFormat(2, model.getWind().getSpeed()) + "m/s");
+        tv_cloud.setText(doubleToStrFormat(2, model.getClouds().getAll())+ "%");
+        tv_humidity.setText(doubleToStrFormat(2, model.getMain().getHumidity()) +"%");
+
+    }
+
+
+
+
+    private String doubleToStrFormat(int n, double value) {
+        return String.format("%."+n+"f", value);
+    }
 }
