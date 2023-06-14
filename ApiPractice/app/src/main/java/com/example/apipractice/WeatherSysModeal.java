@@ -8,6 +8,7 @@ public class WeatherSysModeal {
     String country = ""; //나라
 
     public String getCountry() {
+
         return country;
     }
 
