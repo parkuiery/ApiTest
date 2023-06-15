@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">ApiPractice</string>
     <string name="weather_url">https://api.openweathermap.org/</string>
-    <string name="weather_app_id">data/2.5/weather?lat=36.23&amp;lon=127.21&amp;appid=b58866c1e1301f519891634ff1d32d61&amp;lang=kr</string>
+    <string name="weather_app_id">lat=36.23&amp;lon=127.21&amp;appid=b58866c1e1301f519891634ff1d32d61&amp;lang=kr</string>
 </resources>
