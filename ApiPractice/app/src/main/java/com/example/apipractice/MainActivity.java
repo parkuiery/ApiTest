@@ -3,11 +3,9 @@ package com.example.apipractice;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.ConditionVariable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +14,8 @@ import com.bumptech.glide.Glide;
 
 import org.w3c.dom.Text;
 
+import kotlinx.coroutines.CoroutineScope;
+import kotlinx.coroutines.GlobalScope;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
         requestNetwork();
     }
 
+
+
     private void initView() {
         tv_name = (TextView) findViewById(R.id.tv_name);
         tv_country = (TextView) findViewById(R.id.tv_country);
@@ -61,7 +63,29 @@ public class MainActivity extends AppCompatActivity {
         Call<WeatherInfoModeal> call = apiinterface.doGetJsonData("weather", "seoul", getString(R.string.weather_app_id));
 
         //응답 콜백 구현
-        call.enqueue(new Callback<WeatherInfoModeal>() {
+//        call.enqueue(new Callback<WeatherInfoModeal>() {
+//            @Override
+//            public void onResponse(Call<WeatherInfoModeal> call, Response<WeatherInfoModeal> response) {
+//                WeatherInfoModeal resource = response.body();
+//                if(response.isSuccessful()) {
+//                    setWeatherData(resource);   //UI 업데이트
+//                }else{
+//                    showFailPop();
+//                }
+//
+//                Log.d("TEST", response.message());
+//            }
+//
+//            @Override
+//            public void onFailure(Call<WeatherInfoModeal> call, Throwable t) {
+//                call.cancel();
+//                showFailPop();
+//                Log.d("TEST", t.toString());
+//
+//            }
+//        });
+
+        APIClient.getClient(getString(R.string.weather_url)).create(APIService.class).fetchWeatherInfo(36.23, 127.22, "b58866c1e1301f519891634ff1d32d61").enqueue(new Callback<WeatherInfoModeal>() {
             @Override
             public void onResponse(Call<WeatherInfoModeal> call, Response<WeatherInfoModeal> response) {
                 WeatherInfoModeal resource = response.body();
@@ -70,16 +94,15 @@ public class MainActivity extends AppCompatActivity {
                 }else{
                     showFailPop();
                 }
+
             }
 
             @Override
             public void onFailure(Call<WeatherInfoModeal> call, Throwable t) {
                 call.cancel();
                 showFailPop();
-
             }
         });
-
     }
 
 
